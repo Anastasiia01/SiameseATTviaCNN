@@ -43,15 +43,14 @@ def main():
         #testY[i,y] = 1.0 one hot binary
         test[i] = cv2.imread('C:/Users/anast/Documents/Computer-Vision/AttDataSet/ATTDataSet/Testing/{0}'.format(filename),0)/255.0
         i = i + 1
-    print(trainY.shape)
     #cv2.imshow('image',train[0])
     #cv2.waitKey(0)
     trainX = train.reshape(train.shape[0],train.shape[1],train.shape[2],1)
     testX = test.reshape(test.shape[0],test.shape[1],test.shape[2],1)
     #resized=cv2.resize(train[0], (92,92), interpolation=cv2.INTER_LINEAR)
     siamese = Siamese()
-    siamese.trainSiamese(trainX, trainY, 10,20)
-    siamese.trainSiameseForClassification(trainX, trainY, 20,20)
+    siamese.trainSiamese(trainX, trainY, 7,10)
+    siamese.trainSiameseForClassification(trainX, trainY, 50,10)
     
     # Test model
     embed = siamese.test_model(input = testX)

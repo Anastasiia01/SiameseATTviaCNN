@@ -68,14 +68,14 @@ class Siamese(object):
             ac2=tf.nn.tanh(fc2)
             ac2_pooled=self.avgpool2d(ac2)
             out=tf.layers.Flatten()(ac2_pooled)
-            #print(out.get_shape())#(?,28*28*8)=(?,5152)
+            #print(out.get_shape())#(?,28*23*8)=(?,5152)
             return out #embeddings that have the most relative info helpful for further classification
 
     def networkWithClassification(self, tf_input):
         # Setup FNN
         fc3 = self.network(tf_input, trainable=False)
         ac3 = tf.nn.relu(fc3)
-        fc4 = self.layer(tf_input = ac3, num_hidden_units = 80, trainable=True, variable_name = 'fc4')
+        fc4 = self.layer(tf_input = ac3, num_hidden_units = 200, trainable=True, variable_name = 'fc4')
         ac4 = tf.nn.relu(fc4)
         fc5 = self.layer(tf_input = ac4, num_hidden_units = 40, trainable=True, variable_name = 'fc5')
         return fc5
@@ -125,7 +125,7 @@ class Siamese(object):
         return optimizer
 
     def optimizer_initializer_crossEntropy(self):
-        LEARNING_RATE = 0.01
+        LEARNING_RATE = 0.001
         RAND_SEED = 0 # random seed
         tf.set_random_seed(RAND_SEED)
         # Initialize optimizer
